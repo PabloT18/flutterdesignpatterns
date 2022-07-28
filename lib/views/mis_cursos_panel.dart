@@ -1,7 +1,7 @@
 import 'package:app_patrones/logic/bloc/app_bloc.dart';
 import 'package:app_patrones/logic/widgets/platformwidgets_cubit.dart';
 import 'package:app_patrones/singleton/usuario_service.dart';
-import 'package:app_patrones/views/cursos_list_widget.dart';
+import 'package:app_patrones/views/curso_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,10 +33,20 @@ class MisCursosPanel extends StatelessWidget {
               builder: (context, state) {
                 if (state is AppLoaded) {
                   return Expanded(
-                      child: ListCursos(
-                    cursos: state.misCursos,
-                    main: false,
-                  ));
+                    //     child: ListCursos(
+                    //   key: const Key('miscursos'),
+                    //   cursos: state.misCursos,
+                    //   main: false,
+                    // ));
+                    child: ListView.builder(
+                      itemCount: state.misCursos.length,
+                      itemBuilder: (context, index) => Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CursoCard(
+                            cursos: state.misCursos, index: index, main: false),
+                      ),
+                    ),
+                  );
                 } else if (state is AppError) {
                   return const Center(
                     child: Text('Erro al cargar datos.'),

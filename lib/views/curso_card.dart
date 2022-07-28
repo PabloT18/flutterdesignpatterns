@@ -40,7 +40,21 @@ class CursoCard extends StatelessWidget {
                         Text("Fecha Inicio: ${cursos[index].startDate}"),
                         Text("Fecha Fin: ${cursos[index].endDate}"),
                         Text("Precio: ${cursos[index].price}"),
-                        Text("Estado: ${cursos[index].status}"),
+                        Row(
+                          children: [
+                            const Text("Estado: "),
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: cursos[index].status == 0
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),

@@ -8,4 +8,5 @@ abstract class Sericios {
   Future<Docente?> getDocente();
 
   Future<List<Inscripcion>?> getMisCursos();
+  Future setInscripcion(String cedula, int cursoId);
 }

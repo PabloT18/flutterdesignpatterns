@@ -10,7 +10,9 @@ class AppLoaded extends AppState {
     required this.cursos,
     required this.misCursos,
     required this.inscripciones,
+    required this.docente,
   });
+  final Docente docente;
   final List<Curso> cursos;
   final List<Curso> misCursos;
 

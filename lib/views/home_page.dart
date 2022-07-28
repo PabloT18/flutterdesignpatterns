@@ -4,7 +4,7 @@ import 'package:app_patrones/logic/bloc/app_bloc.dart';
 import 'package:app_patrones/logic/navigation/navigation_cubit.dart';
 import 'package:app_patrones/logic/widgets/platformwidgets_cubit.dart';
 import 'package:app_patrones/main.dart';
-import 'package:app_patrones/views/cursos_list_widget.dart';
+import 'package:app_patrones/views/curso_card.dart';
 import 'package:app_patrones/views/mis_cursos_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +61,22 @@ class _CurosPanel extends StatelessWidget {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
         if (state is AppLoaded) {
-          return ListCursos(cursos: state.cursos);
+          // return ListCursos(key: const Key('home'), cursos: state.cursos);
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                ...state.cursos
+                    .map(
+                      (curso) => CursoCard(
+                          main: true,
+                          cursos: state.cursos,
+                          index: state.cursos
+                              .indexWhere((element) => element == curso)),
+                    )
+                    .toList()
+              ],
+            ),
+          );
         } else if (state is AppError) {
           return const Center(
             child: Text('Erro al cargar datos.'),

@@ -29,9 +29,26 @@ class ServicoImpl implements Sericios {
   }
 
   @override
-  Future<Docente?> getDocente() {
-    // TODO: implement getDocente
-    throw UnimplementedError();
+  Future<Docente?> getDocente() async {
+    final dio = Dio();
+
+    const url = 'http://127.0.0.1:8000/teacher/';
+
+    try {
+      final response = await dio.get(
+        url,
+      );
+
+      if (response.statusCode != 200) {
+        return null;
+      }
+      final Map<String, dynamic> decodedData = response.data;
+
+      Docente docente = DocenteResponse.fromJson(decodedData).results[0];
+      return docente;
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
@@ -54,6 +71,23 @@ class ServicoImpl implements Sericios {
       return cursos;
     } catch (e) {
       return null;
+    }
+  }
+
+  @override
+  Future setInscripcion(String cedula, int cursoId) async {
+    final dio = Dio();
+    const url = 'http://127.0.0.1:8000/inscripciones/';
+    try {
+      final response = await dio.post(
+        url,
+        data: FormData.fromMap(
+            {"student": cedula, "course": cursoId, "date": "2022-07-28"}),
+      );
+
+      return response;
+    } catch (e) {
+      print("Error");
     }
   }
 }
